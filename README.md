@@ -6,7 +6,7 @@ A project for detecting depression on twitter
 2. Install "Git" on your system(windows user should install 'Git bash for windows'). This will help for git version control
 3. create a new environment by typing the following cmd: 
 ```bash
-conda env create -f environment.yml
+conda env create --name <env_name> -p <project_directory> -f environment.yml
 ```
 This will create a the env with all the dependencies intalled in the new conda env named `twitter`
 4. I suggest to use Jupyterlab; as it has useful github extensions especially `Git` for seamless version control and easy collabration
