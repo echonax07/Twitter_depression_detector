@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+.# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -125,3 +125,10 @@ dmypy.json
 
 # Ignore the .idea file created by Jetbrains 
 .idea
+
+# ignore the files in .ignore folder
+.ignore/
+
+#ignore the datasets
+*.csv
+*.xlsx
