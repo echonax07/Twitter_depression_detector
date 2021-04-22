@@ -126,6 +126,14 @@ dmypy.json
 # Ignore the .idea file created by Jetbrains 
 .idea
 
+# Ignore the Depression data
+data/Depression_Annotated_Data (1)/
+
+# Ignore the .csv and xlsx data file
+*.xlsx
+*.csv
+*.tsv
+
 # ignore the files in .ignore folder
 .ignore/
 

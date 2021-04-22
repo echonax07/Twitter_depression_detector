@@ -16,18 +16,19 @@ import numpy as np
 model = pickle.load(open(r'D:\Project\Twitter_depression_detector\src\model.pkl', 'rb'))
 tv=pickle.load(open(r'D:\Project\Twitter_depression_detector\src\tv.pkl', 'rb'))
 
-def scraper(username,since,until):
-    # place id of india is b850c1bfd38f30e0
+# def scraper(username,since,until):
+#     # place id of india is b850c1bfd38f30e0
 
-    # df = pd.DataFrame(itertools.islice(sntwitter.TwitterSearchScraper(
-    #     'from:{}'.format(username)).get_items(), no_of_tweets))
-    # df = df.loc[:, ['date', 'content']]
-    # return df
-    df = pd.DataFrame(itertools.islice(sntwitter.TwitterSearchScraper(
-        'from:{} since:{} until:{}'.format(username,since,until)).get_items(), 10000))
-    df = df.loc[:, ['date', 'renderedContent']]
-    return df
-    
+#     # df = pd.DataFrame(itertools.islice(sntwitter.TwitterSearchScraper(
+#     #     'from:{}'.format(username)).get_items(), no_of_tweets))
+#     # df = df.loc[:, ['date', 'content']]
+#     # return df
+#     df = pd.DataFrame(itertools.islice(sntwitter.TwitterSearchScraper(
+#         'from:{} since:{} until:{}'.format(username,since,until)).get_items(), 10000))
+#     df = df.loc[:, ['date', 'renderedContent']]
+#     return df
+
+
 def predict(data,tv,model):  
     test_array = tv.transform(clean_tweets(data['renderedContent'])).toarray()
     prediction = model.predict(test_array)
@@ -62,29 +63,31 @@ def plot(data):
     # Position of bars on x-axis
     ind = np.arange(len(blue_bar))
     
+    fig, ax = plt.subplots(figsize=(10, 5))
     # Figure size
-    plt.figure(figsize=(10,5))
+    
     
     # Width of a bar 
     width = 0.3       
     
     # Plotting
-    plt.bar(ind-width/2, blue_bar , width, label='Non Depressive Tweets',zorder=100)
-    plt.bar(ind+width/2, orange_bar, width, label='Depressive Tweets',zorder=100)
+    ax.bar(ind-width/2, blue_bar , width, label='Non Depressive Tweets',zorder=100)
+    ax.bar(ind+width/2, orange_bar, width, label='Depressive Tweets',zorder=100)
     
-    plt.xlabel('Date')
-    plt.ylabel('Count')
-    plt.title('Tweet Nature over time')
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Count')
+    ax.set_title('Tweet Nature over time')
     
     # xticks()
     # First argument - A list of positions at which ticks should be placed
     # Second argument -  A list of labels to place at the given locations
-    plt.xticks(ind + width, (list(count_non_depressive.keys())))
-    plt.yticks(range(0,max_overall+1))
+    ax.set_xticks(ind + width)
+    ax.set_xticklabels((list(count_non_depressive.keys())))
+    ax.set_yticks(range(0,max_overall+1))
     # Finding the best position for legends and putting it
-    plt.legend(loc='best')
-    plt.grid(zorder=2)
-    plt.show()
+    ax.legend(loc='best')
+    ax.grid(zorder=2)
+    fig.show()
 
 
 data=scraper('imlonelyandsadd','2021-03-20','2021-03-30')  
